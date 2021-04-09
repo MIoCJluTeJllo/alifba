@@ -1,19 +1,44 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet} from 'react-native';
 
-import Alphabet from './components/Alphabet'
+import {createStore} from 'redux';
+import {Provider} from 'react-redux'
+
+import Header from './components/Header';
+import Alphabet from './components/Alphabet';
+
+import {reducer} from './redux/reducer'
 
 export default function App(){
+    const store = createStore(reducer)
     return(
-        <View style={styles.appView}>
-            <Alphabet/>
-        </View>
+        <Provider store={store}> 
+            <View style={styles.appView}>
+                <View style={styles.topView}>
+                    <Header/>
+                </View>
+                <View style={styles.bodyView}>
+                    <Alphabet/>
+                </View>
+            </View>
+        </Provider>
     );
 }
 
 const styles = StyleSheet.create({
     appView: {
-        paddingVertical: 30,
+        top: 10,
+        flex: 1,
+    },
+    topView: {
+        borderColor: 'red',
+        flex: 1,
+    },
+    bodyView: {
+        paddingVertical: 5,
         paddingHorizontal: 10,
+        flex: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })

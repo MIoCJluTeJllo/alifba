@@ -1,0 +1,2 @@
+export const LETTER_CATH = 'LETTER_CATH'
+export const GAME_PROGRESS = 'GAME_PROGRESS'

@@ -1,20 +1,24 @@
 import React from 'react'
-import {TouchableOpacity, StyleSheet, Text} from 'react-native'
+import {View, StyleSheet, Text} from 'react-native'
 
-export default function Letter({title, size}){
+export default function Letter({name}){
     return(
-        <TouchableOpacity style={[styles.letterView, {'width': size.width, 'height': size.height}]}>
-            <Text style={styles.letterImg}>{title}</Text>
-        </TouchableOpacity>
+        <View style={styles.letterView}>
+            <Text style={styles.letterText}>{name}</Text>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     letterView: {
-        borderWidth: 1,
-        margin: 1,
+        width: 180,
+        height: 200,
+        margin: 2,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    letterImg: {
-        textAlign: 'center'
+    letterText: {
+        textAlign: 'center',
+        fontSize: 140,
     }
 })
