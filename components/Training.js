@@ -1,46 +1,45 @@
-import React, {useEffect, useState} from 'react'
-import {Modal, StyleSheet, View} from 'react-native'
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, View, useWindowDimensions} from 'react-native';
 
-import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import AnimLetter from './AnimLetter';
+import {alphabet} from '../constants';
 
-import ActionIcon from './ActionIcon'
-import GameProgress from './GameProgress'
-import Game from './Game'
-
-import {fillGameProgress} from './../redux/actions'
-import {useSelector, useDispatch} from 'react-redux'
-
-export default function Taining({letter, visible=false, onClose}){
-    const catchLetter = useSelector(state => state.catchLetter)
-    const dispatch = useDispatch()
+export default function Training({letter}){
+    const {width, height} = useWindowDimensions();
+    const [letters, setLetters] = useState([]);
     useEffect(()=>{
-        fillGameProgress(catchLetter == letter)
-    }, [catchLetter])
+        const timerId = setInterval(()=>{
+            const left = Math.random() * width - 120;
+            let name
+            if (Math.random() * 10 > 3){
+                name = letter
+            } else {
+                name = alphabet[Math.floor(Math.random() * alphabet.length)]
+            }
+            setLetters(prev => [...prev, {left, name}]);
+        }, 500);
+        return () => clearInterval(timerId);
+    }, [])
+    const removeLetter = (letter) => {
+        setLetters(prev => prev.filter(l => l !== letter));
+    }
     return(
-        <Modal visible={visible} style={styles.modalWindow}>
-            <View style={styles.modalView}>
-                <View style={styles.menuView}>
-                    <ActionIcon size={40} icon={faTimesCircle} action={()=>onClose()}/>
-                    <GameProgress/>
-                </View>
-                <View style={styles.gameView}>
-                    <Game letter={letter}/>
-                </View>
-            </View>
-        </Modal>
+        <View style={styles.gamView}>
+            {
+                letters.map(letter => 
+                    <AnimLetter
+                        animTime={3000}
+                        key={letter.left}
+                        onDestroy={removeLetter}
+                        parrentHeight={height}
+                        letter={letter}/>)
+            }
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    modalView: {
+    gamView: {
         flex: 1,
-    },
-    menuView: {
-        padding: 10,
-        flex: 1,
-        flexDirection: 'row',
-    },
-    gameView: {
-        flex: 20,
     }
 })

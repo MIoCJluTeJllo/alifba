@@ -1,10 +1,10 @@
 import React, {useRef, useEffect} from 'react'
 import {StyleSheet, Animated} from 'react-native'
 
-import {catchLetter} from './../redux/actions'
 import {useDispatch} from 'react-redux'
+import {catchLetter} from './../redux/actions'
 
-export default function AnimLetter({letter, animTime=2000, onDestroy=()=>{}}){
+export default function AnimLetter({letter, animTime=2000, onDestroy=()=>{}, onPress=()=>{}}){
     const dispatch = useDispatch()
     const fadeValue = useRef(new Animated.Value(1)).current;
     const rotateValue = useRef(new Animated.Value(0)).current;
@@ -24,12 +24,9 @@ export default function AnimLetter({letter, animTime=2000, onDestroy=()=>{}}){
             })])
     ).current;
     useEffect(()=>anim.start(()=>onDestroy(letter)), [])
-    const onCatch = () => {
-        dispatch(catchLetter(letter))
-    }
     return(
         <Animated.Text 
-            onPress={()=>onCatch()}
+            onPress={()=>dispatch(catchLetter(letter.name))}
             style={
                 [styles.letterView, {
                     'left': letter.left,

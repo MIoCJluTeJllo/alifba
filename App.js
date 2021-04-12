@@ -7,10 +7,10 @@ import {Provider} from 'react-redux'
 import Header from './components/Header';
 import Alphabet from './components/Alphabet';
 
-import {reducer} from './redux/reducer'
+import {rootReducer} from './redux/rootReducer'
 
 export default function App(){
-    const store = createStore(reducer)
+    const store = createStore(rootReducer)
     return(
         <Provider store={store}> 
             <View style={styles.appView}>
