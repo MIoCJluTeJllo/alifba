@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 
 import {createStore} from 'redux';
 import {Provider} from 'react-redux'
 
 import Header from './components/Header';
-import Alphabet from './components/Alphabet';
+import Body from './components/Body';
 
 import {rootReducer} from './redux/rootReducer'
 
@@ -18,7 +18,7 @@ export default function App(){
                     <Header/>
                 </View>
                 <View style={styles.bodyView}>
-                    <Alphabet/>
+                    <Body/>
                 </View>
             </View>
         </Provider>

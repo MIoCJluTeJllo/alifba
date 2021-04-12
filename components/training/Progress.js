@@ -6,11 +6,10 @@ import { faSquare } from '@fortawesome/free-solid-svg-icons';
 
 import {useSelector} from 'react-redux'
 
-export default function GameProgress(){
+export default function Progress(){
     const progress = useSelector(state => state.training.progress)
     return(
         <View style={styles.gameProgressView}>
-            {console.log(progress)}
             {
                 progress.map((color, index) => (
                     <FontAwesomeIcon 

@@ -1,34 +1,29 @@
-import React, {useEffect, useState} from 'react'
-import {Modal, StyleSheet, View} from 'react-native'
+import React from 'react';
+import {Modal, StyleSheet, View} from 'react-native';
 
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
-import ActionIcon from './ActionIcon'
-import GameProgress from './GameProgress'
-import Training from './Training'
+import ActionIcon from './../common/ActionIcon';
+import Progress from './Progress';
+import Letters from './Letters';
 
 import {useSelector, useDispatch} from 'react-redux'
-import {endTraining} from './../redux/actions'
+import {endTraining} from '../../redux/actions'
 
-export default function TrainingModal(){
+export default function Root(){
     const start = useSelector(state => state.training.beginTraining)
     const dispatch = useDispatch()
-    console.log(start)
     const finish = () => {
         dispatch(endTraining())
     }
     return(
-        <Modal 
-            onRequestClose={()=>finish()}
-            visible={start} 
-            style={styles.modalWindow}>
+        <Modal onRequestClose={()=>finish()} visible={start}>
             <View style={styles.modalView}>
-                <View style={styles.menuView}>
+                <View style={styles.headerView}>
                     <ActionIcon size={40} icon={faTimesCircle} action={finish}/>
-                    <GameProgress/>
+                    <Progress/>
                 </View>
-                <View style={styles.gameView}>
-                    <Training/>
+                <View style={styles.bodyView}>
                 </View>
             </View>
         </Modal>
@@ -39,12 +34,12 @@ const styles = StyleSheet.create({
     modalView: {
         flex: 1,
     },
-    menuView: {
+    headerView: {
         padding: 10,
         flex: 1,
         flexDirection: 'row',
     },
-    gameView: {
+    bodyView: {
         flex: 20,
     }
 })

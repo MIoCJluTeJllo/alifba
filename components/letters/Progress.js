@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faStar as star } from '@fortawesome/free-regular-svg-icons';
 import { faStar as completeStar } from '@fortawesome/free-solid-svg-icons';
 
-export default function LetterProgress({level}){
-    console.log(level)
+export default function Progress({level}){
     const sizes = [40, 50, 40]
     return(
         <View style={styles.letterProgressView}>

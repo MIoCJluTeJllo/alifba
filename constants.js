@@ -7,3 +7,5 @@ export const alphabet = [
     'Х', 'Һ','Ц', 'Ч', 'Ш', 'Щ', 
     'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'
 ]
+
+export const GAME_PROGRESS_COUNT = 7

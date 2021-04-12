@@ -3,15 +3,15 @@ import {View, StyleSheet} from 'react-native'
 
 import { faChevronLeft, faChevronRight, faGift } from '@fortawesome/free-solid-svg-icons'
 
-import Letter from './Letter';
-import LetterProgress from './LetterProgress';
-import ActionIcon from './ActionIcon';
-import TrainingModal from './TrainingModal';
+import Letter from './letters/Letter';
+import Progress from './letters/Progress';
+import ActionIcon from './common/ActionIcon';
+import TrainingModal from './training/Root';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { nextLetter, prevLetter, beginTraining } from './../redux/actions'
+import { nextLetter, prevLetter, beginTraining } from '../redux/actions'
 
-export default function Alphabet(){
+export default function Body(){
     const currentLetter = useSelector(state => state.letters.current)
     const dispatch = useDispatch()
     return(
@@ -22,7 +22,7 @@ export default function Alphabet(){
                 <ActionIcon icon={faChevronRight} action={()=>dispatch(nextLetter())}/>
             </View>
             <View style={styles.bottomView}>
-                <LetterProgress level={currentLetter.level}/>
+                <Progress level={currentLetter.level}/>
                 <ActionIcon size={80} icon={faGift} action={()=>dispatch(beginTraining(currentLetter.name))}/>
             </View>
             <TrainingModal/>
