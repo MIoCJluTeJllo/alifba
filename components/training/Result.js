@@ -2,9 +2,10 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { faSmileBeam, faSadTear } from '@fortawesome/free-regular-svg-icons';
-import ActionIcon from '../common/ActionIcon';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+import ActionIcon from '../common/ActionIcon';
 
 export default function Restart(){
     const success = useSelector(state => state.training.success);

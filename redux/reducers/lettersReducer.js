@@ -1,34 +1,33 @@
-import * as types from '../types'
-import {alphabet} from '../../constants'
+import * as types from '../types';
+import { alphabet } from '../../constants';
 
-const initLetters = alphabet.map(letter => ({name: letter, complete: false}))
-
-const initialState = {
-    letters: initLetters,
-    current: initLetters[0]
-}
-
+const letters = alphabet.map(letter => ({name: letter, complete: false}));
 let counter = 0;
 
+const initialState = {
+    current: letters[counter],
+    counter,
+    length: letters.length
+}
+
 export const lettersReducer = (state=initialState, action) => {
-    const {letters} = state
     switch (action.type){
         case types.LETTERS_NEXT: {
             if (counter < letters.length - 1){
-                counter++
+                counter++;
             }
-            return {...state, current: letters[counter]}
+            return {...state, current: letters[counter], counter};
         }
         case types.LETTERS_PREV: {
             if (counter > 0){
-                counter--
+                counter--;
             }
-            return {...state, current: letters[counter]}
+            return {...state, current: letters[counter], counter};
         }
         case types.COMPLETE: {
-            letters = letters.map((letter, index) => index == counter ? ({...letter, complete: true}) : letter)
-            return {...state, letters, current: letters[counter]}
+            letters[counter].complete = true;
+            return {...state, current: letters[counter]};
         }
-        default: return state
+        default: return state;
     }
 }

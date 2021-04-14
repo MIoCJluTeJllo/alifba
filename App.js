@@ -2,23 +2,22 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 
 import {createStore} from 'redux';
-import {Provider} from 'react-redux'
+import {Provider} from 'react-redux';
+import {rootReducer} from './redux/rootReducer';
 
-import Header from './components/Header';
-import Body from './components/Body';
-
-import {rootReducer} from './redux/rootReducer'
+import Header from './components/main/Header';
+import MainScene from './components/main/MainScene';
 
 export default function App(){
-    const store = createStore(rootReducer)
+    const store = createStore(rootReducer);
     return(
         <Provider store={store}> 
             <View style={styles.appView}>
-                <View style={styles.topView}>
+                <View style={styles.headerView}>
                     <Header/>
                 </View>
                 <View style={styles.bodyView}>
-                    <Body/>
+                    <MainScene/>
                 </View>
             </View>
         </Provider>
@@ -27,17 +26,13 @@ export default function App(){
 
 const styles = StyleSheet.create({
     appView: {
-        top: 10,
         flex: 1,
     },
-    topView: {
-        borderColor: 'red',
+    headerView: {
         flex: 1,
     },
     bodyView: {
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        flex: 8,
+        flex: 9,
         justifyContent: 'center',
         alignItems: 'center',
     }

@@ -1,7 +1,6 @@
 import * as types from './../types';
-import {alphabet} from './../../constants';
-import { TRAINING_PROGRESS_COUNT, TRAINING_PROGRESS_COLORS, TRAINING_MAX_ERROR } from './../../constants';
-import { complete } from '../actions';
+import { alphabet, TRAINING_PROGRESS_COUNT, TRAINING_PROGRESS_COLORS, TRAINING_MAX_ERROR } from './../../constants';
+import { letterComplete } from '../actions';
 
 const initialState = {
     begin: false,
@@ -19,16 +18,19 @@ export const trainingReducer = (state=initialState, action) => {
         case types.TRAINING_BEGIN: {
             return {...initialState, begin: true, needLetter: action.needLetter}
         }
-        case types.TRAINING_END: {
+        case types.TRAINING_CLOSE: {
             return {...state, begin: false}
         }
         case types.GENERATE_LETTER: {
             const left = Math.random() * action.width;
             const name = (Math.random() * 10 > 5) ? needLetter : alphabet[Math.floor(Math.random() * alphabet.length)]
-            return {...state, letters: [...letters, {left, name}]}
+            return {...state, letters: [{left, name}]}
         }
         case types.DESTROY_LETTER: {
-            return {...state, letters: letters.filter(letter => letter != action.letter)}
+            const left = Math.random() * 360;
+            const name = (Math.random() * 10 > 5) ? needLetter : alphabet[Math.floor(Math.random() * alphabet.length)]
+            console.log({left, name})
+            return {...state, letters: [{left, name}]}
         }
         case types.LETTER_CATH: {
             if (counter < progressColors.length){
@@ -43,9 +45,9 @@ export const trainingReducer = (state=initialState, action) => {
                     const success = TRAINING_MAX_ERROR >= progressColors.filter(color => color == TRAINING_PROGRESS_COLORS.ERROR).length;
                     counter=0;
                     if (success){
-                        complete(needLetter)
+                        letterComplete(needLetter)
                     }
-                    return {...state, end: true, success, progressColors: newProgressColors}
+                    return {...state, end: true, progressColors: newProgressColors, success}
                 }
                 return {...state, progressColors: newProgressColors};
             }
