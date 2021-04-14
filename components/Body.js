@@ -1,12 +1,11 @@
 import React from 'react'
 import {View, StyleSheet} from 'react-native'
 
-import { faChevronLeft, faChevronRight, faGift } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faChevronRight, faGift, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 
 import Letter from './letters/Letter';
-import Progress from './letters/Progress';
 import ActionIcon from './common/ActionIcon';
-import TrainingModal from './training/Root';
+import Root from './training/Root';
 
 import { useSelector, useDispatch } from 'react-redux'
 import { nextLetter, prevLetter, beginTraining } from '../redux/actions'
@@ -22,10 +21,12 @@ export default function Body(){
                 <ActionIcon icon={faChevronRight} action={()=>dispatch(nextLetter())}/>
             </View>
             <View style={styles.bottomView}>
-                <Progress level={currentLetter.level}/>
-                <ActionIcon size={80} icon={faGift} action={()=>dispatch(beginTraining(currentLetter.name))}/>
+                <ActionIcon 
+                    size={80} 
+                    icon={!currentLetter.complete ? faGift : faThumbsUp}
+                    action={()=>dispatch(beginTraining(currentLetter.name))}/>
             </View>
-            <TrainingModal/>
+            <Root/>
         </View>
     );
 }

@@ -8,4 +8,10 @@ export const alphabet = [
     'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'
 ]
 
-export const GAME_PROGRESS_COUNT = 7
+export const TRAINING_PROGRESS_COUNT = 7
+export const TRAINING_MAX_ERROR = 2
+export const TRAINING_PROGRESS_COLORS = {
+    DEFAULT: 'white',
+    ERROR: 'red',
+    SUCCESS: 'green'
+}

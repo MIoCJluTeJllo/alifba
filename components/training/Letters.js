@@ -1,38 +1,34 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View, useWindowDimensions} from 'react-native';
 
 import Letter from './Letter';
-import {alphabet} from '../../constants';
 
-export default function Letters({letter}){
-    const {width, height} = useWindowDimensions();
-    const [letters, setLetters] = useState([]);
+import { useSelector, useDispatch } from 'react-redux';
+import { generateLetter } from './../../redux/actions';
 
+export default function Letters({begin}){
+    const width = useWindowDimensions().width
+    const dispatch = useDispatch()
+    const letters = useSelector(state => state.training.letters)
     useEffect(()=>{
-        const timerId = setInterval(()=>{
-            const left = Math.random() * width - 120;
-            const name = (Math.random() * 10 > 3) ? letter : alphabet[Math.floor(Math.random() * alphabet.length)]
-            setLetters(prev => [...prev, {left, name}]);
-        }, 500);
-        return () => clearInterval(timerId);
+        if (begin){
+            const timerID = setInterval(()=>{
+                dispatch(generateLetter(width))
+            }, 500)
+            return () => clearInterval(timerID) 
+        }
     }, [])
     return(
-        <View style={styles.gamView}>
+        <View style={styles.lettersView}>
             {
-                letters.map(letter => 
-                    <Letter
-                        animTime={3000}
-                        key={letter.left}
-                        onDestroy={()=>setLetters(prev => prev.filter(l => l !== letter))}
-                        parrentHeight={height}
-                        letter={letter}/>)
+                letters.map(letter => <Letter letter={letter}/>)
             }
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    gamView: {
+    lettersView: {
         flex: 1,
     }
 })

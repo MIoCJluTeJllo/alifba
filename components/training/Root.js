@@ -6,12 +6,14 @@ import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import ActionIcon from './../common/ActionIcon';
 import Progress from './Progress';
 import Letters from './Letters';
+import Restart from './Restart';
 
 import {useSelector, useDispatch} from 'react-redux'
 import {endTraining} from '../../redux/actions'
 
 export default function Root(){
-    const start = useSelector(state => state.training.beginTraining)
+    const start = useSelector(state => state.training.begin)
+    const end = useSelector(state => state.training.end)
     const dispatch = useDispatch()
     const finish = () => {
         dispatch(endTraining())
@@ -24,6 +26,8 @@ export default function Root(){
                     <Progress/>
                 </View>
                 <View style={styles.bodyView}>
+                    {(start && !end) && <Letters begin={!end}/>}
+                    {end && <Restart/>}
                 </View>
             </View>
         </Modal>

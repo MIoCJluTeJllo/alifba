@@ -1,20 +1,20 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {View, StyleSheet} from 'react-native';
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSquare } from '@fortawesome/free-solid-svg-icons';
 
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux';
 
 export default function Progress(){
-    const progress = useSelector(state => state.training.progress)
+    const colors = useSelector(state => state.training.progressColors)
     return(
         <View style={styles.gameProgressView}>
             {
-                progress.map((color, index) => (
+                colors.map((color, index) => (
                     <FontAwesomeIcon 
                         color={color}
-                        key={index+color} 
+                        key={index} 
                         icon={faSquare}
                         style={{'borderWidth': 1, 'border': 'solid 1px black'}} 
                         size={40}/>
