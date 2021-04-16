@@ -8,7 +8,7 @@ import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
 import ActionIcon from '../common/ActionIcon';
 import Progress from './Progress';
-import Anim from './Anim';
+import AnimLetters from './AnimLetters';
 import Result from './Result';
 
 export default function TriningScene(){
@@ -26,7 +26,7 @@ export default function TriningScene(){
                     <Progress/>
                 </View>
                 <View style={styles.bodyView}>
-                    { begin && <Anim run={!end}/> }
+                    { begin && !end && <AnimLetters/>}
                     { end && <Result/> }
                 </View>
             </View>

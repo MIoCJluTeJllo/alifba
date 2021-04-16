@@ -1,10 +1,10 @@
 import * as types from './../types';
-import { alphabet, TRAINING_PROGRESS_COUNT, TRAINING_PROGRESS_COLORS, TRAINING_MAX_ERROR } from './../../constants';
-import { letterComplete } from '../actions';
+import { alphabet, TRAINING_PROGRESS_COUNT, TRAINING_LETTERS_COUNT, TRAINING_PROGRESS_COLORS, TRAINING_MAX_ERROR_COUNT } from './../../constants';
+import { mixArray, getFirstNFromItem } from './../../utils'
 
 const initialState = {
-    begin: false,
     letters: [],
+    begin: false,
     end: false,
     success: false,
     progressColors: new Array(TRAINING_PROGRESS_COUNT).fill(TRAINING_PROGRESS_COLORS.DEFAULT),
@@ -13,43 +13,27 @@ const initialState = {
 let counter = 0;
 
 export const trainingReducer = (state=initialState, action) => {
-    const {letters, needLetter, progressColors} = state
+    const { needLetter, progressColors, end } = state;
     switch (action.type){
         case types.TRAINING_BEGIN: {
-            return {...initialState, begin: true, needLetter: action.needLetter}
+            return {...initialState, begin: true, needLetter: action.needLetter, letters: mixArray(getFirstNFromItem(TRAINING_LETTERS_COUNT, action.needLetter, alphabet))}
         }
         case types.TRAINING_CLOSE: {
             return {...state, begin: false}
         }
-        case types.GENERATE_LETTER: {
-            const left = Math.random() * action.width;
-            const name = (Math.random() * 10 > 5) ? needLetter : alphabet[Math.floor(Math.random() * alphabet.length)]
-            return {...state, letters: [{left, name}]}
-        }
-        case types.DESTROY_LETTER: {
-            const left = Math.random() * 360;
-            const name = (Math.random() * 10 > 5) ? needLetter : alphabet[Math.floor(Math.random() * alphabet.length)]
-            console.log({left, name})
-            return {...state, letters: [{left, name}]}
-        }
         case types.LETTER_CATH: {
-            if (counter < progressColors.length){
-                const newProgressColors = progressColors.map((color, index) => 
-                    index == counter ? 
-                        needLetter == action.catchLetter ? 
-                            TRAINING_PROGRESS_COLORS.SUCCESS : 
-                            TRAINING_PROGRESS_COLORS.ERROR :
-                        color)
-                counter++
+            if (!end){
+                const correct = needLetter == action.catchLetter;
+                const newColor = correct ? TRAINING_PROGRESS_COLORS.SUCCESS : TRAINING_PROGRESS_COLORS.ERROR;
+                const updatedProgressColors = progressColors.map((oldColor, i) => i == counter ? newColor : oldColor);
+                counter++;
+                const mixLetters = mixArray(getFirstNFromItem(TRAINING_LETTERS_COUNT, needLetter, alphabet));
                 if (counter == progressColors.length){
-                    const success = TRAINING_MAX_ERROR >= progressColors.filter(color => color == TRAINING_PROGRESS_COLORS.ERROR).length;
+                    const success = TRAINING_MAX_ERROR_COUNT >= progressColors.filter(color => color == TRAINING_PROGRESS_COLORS.ERROR).length
                     counter=0;
-                    if (success){
-                        letterComplete(needLetter)
-                    }
-                    return {...state, end: true, progressColors: newProgressColors, success}
+                    return {...state, progressColors: updatedProgressColors, success, end: true, letters: mixLetters }
                 }
-                return {...state, progressColors: newProgressColors};
+                return {...state, progressColors: updatedProgressColors, letters: mixLetters}
             }
         }
         default: return state

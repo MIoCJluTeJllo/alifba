@@ -1,6 +1,7 @@
 import * as types from '../types';
 import { alphabet } from '../../constants';
 
+
 const letters = alphabet.map(letter => ({name: letter, complete: false}));
 let counter = 0;
 
@@ -24,7 +25,7 @@ export const lettersReducer = (state=initialState, action) => {
             }
             return {...state, current: letters[counter], counter};
         }
-        case types.COMPLETE: {
+        case types.LETTER_COMPLETE: {
             letters[counter].complete = true;
             return {...state, current: letters[counter]};
         }

@@ -7,7 +7,8 @@ import { faSquare } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 
 export default function Progress(){
-    const colors = useSelector(state => state.training.progressColors)
+    const colors = useSelector(state => state.training.progressColors);
+    console.log(colors)
     return(
         <View style={styles.gameProgressView}>
             {

@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { faSmileBeam, faSadTear } from '@fortawesome/free-regular-svg-icons';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { letterComplete } from './../../redux/actions';
 
 import ActionIcon from '../common/ActionIcon';
 
 export default function Restart(){
     const success = useSelector(state => state.training.success);
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        if (success){
+            dispatch(letterComplete())
+        }
+    }, [success])
     return (
         <View style={styles.restartModalView}>
             <ActionIcon icon={success ? faSmileBeam : faSadTear} size={60}/>

@@ -6,12 +6,13 @@ export const alphabet = [
     'C', 'ҫ', 'Т', 'У', 'Ү', 'Ф', 
     'Х', 'Һ','Ц', 'Ч', 'Ш', 'Щ', 
     'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'
-]
+];
 
-export const TRAINING_PROGRESS_COUNT = 7
-export const TRAINING_MAX_ERROR = 2
+export const TRAINING_LETTERS_COUNT = 20;
+export const TRAINING_PROGRESS_COUNT = 7;
+export const TRAINING_MAX_ERROR_COUNT = 2;
 export const TRAINING_PROGRESS_COLORS = {
     DEFAULT: 'white',
     ERROR: 'red',
     SUCCESS: 'green'
-}
+};

@@ -14,10 +14,17 @@ export default function Letter(){
     return(
         <View style={styles.letterView}>
             <Text style={styles.letterText}>{letter.name}</Text>
-            <ActionIcon 
-                size={80} 
-                icon={!letter.complete ? faGift : faThumbsUp}
-                action={()=>dispatch(beginTraining(letter.name))}/>
+            {
+                !letter.complete ? 
+                <ActionIcon 
+                    size={80} 
+                    icon={faGift}
+                    action={()=>dispatch(beginTraining(letter.name))}/> :
+                <ActionIcon 
+                    size={80} 
+                    icon={faThumbsUp}/>
+            }
+
         </View>
     );
 }
