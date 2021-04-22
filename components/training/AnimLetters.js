@@ -4,6 +4,9 @@ import {View, StyleSheet, useWindowDimensions, Animated} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { catchLetter } from './../../redux/actions';
 
+import ShadowText from './../common/ShadowText'
+import { getRandomColor } from './../../utils'
+
 export default function AnimLetters(){
     const width = useWindowDimensions().width;
     const letters = useSelector(state => state.training.letters);
@@ -25,14 +28,11 @@ export default function AnimLetters(){
         <View style={styles.animLettersView}>{
             letters.map(letter => 
                 <Animated.Text 
-                    onPress={()=>{
-                        anim(letter);
-                    }}
-                    style={[styles.animLetterView, {
-                        width: width/4,
-                        opacity
-                    }]}>
-                    {letter}
+                    onPress={()=>anim(letter)}
+                    style={[styles.animLetterView, {width: width/5, opacity, backgroundColor: getRandomColor()}]}>
+                    <ShadowText 
+                        text={letter} 
+                        size={50}/>
                 </Animated.Text>)}
         </View>
     )
@@ -47,8 +47,10 @@ const styles = StyleSheet.create({
         alignContent: 'center'
     },
     animLetterView: {
-        fontSize: 80,
-        borderWidth: 1,
+        fontSize: 50,
         textAlign: 'center',
+        borderWidth: 1,
+        backgroundColor: 'red',
+        margin: 3,
     }
 })

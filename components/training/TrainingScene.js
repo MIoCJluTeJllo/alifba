@@ -19,8 +19,7 @@ export default function TriningScene(){
         dispatch(closeTraining())
     }
     return(
-        <Modal visible={begin} onRequestClose={()=>close()}>
-            <View style={styles.modalView}>
+        <Modal visible={begin} onRequestClose={()=>close()} transparent={true}>
                 <View style={styles.headerView}>
                     <ActionIcon size={40} icon={faTimesCircle} action={close}/>
                     <Progress/>
@@ -29,7 +28,6 @@ export default function TriningScene(){
                     { begin && !end && <AnimLetters/>}
                     { end && <Result/> }
                 </View>
-            </View>
         </Modal>
     );
 }

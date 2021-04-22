@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ImageBackground } from 'react-native';
 
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
@@ -13,12 +13,16 @@ export default function App(){
     return(
         <Provider store={store}> 
             <View style={styles.appView}>
+                <ImageBackground
+                    style={styles.backgroundImgView}
+                    source={{uri: 'https://image.freepik.com/free-vector/fruits-seamless-pattern-cute-summer-seamless-pattern-background-illustration-with-fresh-fruits-cute-fruit-characters-funny-fruits-kids-isolated-white-background_106796-284.jpg'}}>
                 <View style={styles.headerView}>
                     <Header/>
                 </View>
                 <View style={styles.bodyView}>
                     <MainScene/>
                 </View>
+                </ImageBackground>
             </View>
         </Provider>
     );
@@ -26,6 +30,10 @@ export default function App(){
 
 const styles = StyleSheet.create({
     appView: {
+        flex: 1,
+    },
+    backgroundImgView: {
+        borderWidth: 1,
         flex: 1,
     },
     headerView: {

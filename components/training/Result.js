@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 
 import { faSmileBeam, faSadTear } from '@fortawesome/free-regular-svg-icons';
 
@@ -17,22 +17,16 @@ export default function Restart(){
         }
     }, [success])
     return (
-        <View style={styles.restartModalView}>
-            <ActionIcon icon={success ? faSmileBeam : faSadTear} size={60}/>
-        </View>
+        <Image 
+            style={styles.resultImageView}
+            source={success ? require('./../../assets/success.gif') : require('./../../assets/loss.gif')}/>
     )
 }
 
 const styles = StyleSheet.create({
-    restartModalView: {
-        top: 200,
-        flexDirection: 'row',
-        alignSelf: 'center',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        width: 250,
-        height: 150,
-        borderRadius: 10,
-        borderWidth: 1,
+    resultImageView: {
+        width: 124, 
+        height: 124,
+        alignSelf: 'center'
     }
 })

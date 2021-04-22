@@ -4,7 +4,7 @@ import {View, StyleSheet, Text} from 'react-native';
 export default function Header(){
     return(
         <View style={styles.headerView}>
-            <Text style={styles.headerText}>Әлифбә</Text>
+            <Text style={styles.headerText}>Әлифба</Text>
         </View>
     );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 
 import { useDispatch } from 'react-redux';
 import { nextLetter, prevLetter } from '../../redux/actions';
@@ -28,7 +28,7 @@ export default function MainScene(){
 
 const styles = StyleSheet.create({
     mainSceneView: {
-        alignItems: 'center'
+        alignItems: 'center',
     },
     letter: {
         flexDirection: 'row',

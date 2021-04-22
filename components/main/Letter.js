@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { beginTraining } from './../../redux/actions'
@@ -7,19 +7,27 @@ import { beginTraining } from './../../redux/actions'
 import { faGift, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
 import ActionIcon from './../common/ActionIcon';
+import ShadowText from './../common/ShadowText';
 
 export default function Letter(){
     const letter = useSelector(state => state.letters.current);
     const dispatch = useDispatch();
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
     return(
         <View style={styles.letterView}>
-            <Text style={styles.letterText}>{letter.name}</Text>
+            <ShadowText text={letter.name} size={160}/>
             {
                 !letter.complete ? 
-                <ActionIcon 
-                    size={80} 
-                    icon={faGift}
-                    action={()=>dispatch(beginTraining(letter.name))}/> :
+                <TouchableOpacity onPress={()=>dispatch(beginTraining(letter.name))}>
+                    <Image source={require('./../../assets/gift.gif')} style={{width: 150, height: 150 }}/>
+                </TouchableOpacity>:
                 <ActionIcon 
                     size={80} 
                     icon={faThumbsUp}/>
@@ -34,10 +42,6 @@ const styles = StyleSheet.create({
         width: 180,
         height: 300,
         justifyContent: 'center',
-        alignItems: 'center'
-    },
-    letterText: {
-        textAlign: 'center',
-        fontSize: 140,
+        alignItems: 'center',
     }
 })
