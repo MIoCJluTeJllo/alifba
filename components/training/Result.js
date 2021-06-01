@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
-
-import { faSmileBeam, faSadTear } from '@fortawesome/free-regular-svg-icons';
+import { StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { letterComplete } from './../../redux/actions';
+import { letterComplete, closeTraining } from './../../redux/actions';
 
-import ActionIcon from '../common/ActionIcon';
 
 export default function Restart(){
     const success = useSelector(state => state.training.success);
@@ -16,10 +13,17 @@ export default function Restart(){
             dispatch(letterComplete())
         }
     }, [success])
+    const close = () => {
+        dispatch(closeTraining())
+    }
     return (
-        <Image 
-            style={styles.resultImageView}
-            source={success ? require('./../../assets/success.gif') : require('./../../assets/loss.gif')}/>
+        <TouchableOpacity onPress={()=>close()}>
+            <Image 
+                style={styles.resultImageView}
+                source={success ? 
+                    require(`./../../assets/gifs/success.gif`) : 
+                    require(`./../../assets/gifs/loss.gif`)}/>
+        </TouchableOpacity>
     )
 }
 

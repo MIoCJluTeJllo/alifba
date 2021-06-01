@@ -1,8 +1,8 @@
 import * as types from '../types';
 import { alphabet } from '../../constants';
+import { getRandomColor } from './../../utils';
 
-
-const letters = alphabet.map(letter => ({name: letter, complete: false}));
+const letters = alphabet.map(letter => ({name: letter, complete: false, color: getRandomColor()}));
 let counter = 0;
 
 const initialState = {

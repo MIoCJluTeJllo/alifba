@@ -15,13 +15,13 @@ export default function App(){
             <View style={styles.appView}>
                 <ImageBackground
                     style={styles.backgroundImgView}
-                    source={{uri: 'https://image.freepik.com/free-vector/fruits-seamless-pattern-cute-summer-seamless-pattern-background-illustration-with-fresh-fruits-cute-fruit-characters-funny-fruits-kids-isolated-white-background_106796-284.jpg'}}>
-                <View style={styles.headerView}>
-                    <Header/>
-                </View>
-                <View style={styles.bodyView}>
-                    <MainScene/>
-                </View>
+                    source={require('./assets/background.jpg')}>
+                    <View style={styles.headerView}>
+                        <Header/>
+                    </View>
+                    <View style={styles.bodyView}>
+                        <MainScene/>
+                    </View>
                 </ImageBackground>
             </View>
         </Provider>

@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 import firebaseConfig from './config.json';
 
 if (firebase.apps.length === 0) {
@@ -21,8 +21,6 @@ export function listFilesAndDirectories(reference, pageToken) {
     });
 }
 
-export async function getImgFromFirestore(path) {
-    return storage.ref(path).getDownloadURL()
+export async function getItemFromFirestore(path) {
+    return await storage.ref(path).getDownloadURL()
 }
-
-export const db = storage.ref('alphabet');

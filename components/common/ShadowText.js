@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 
-import { getRandomColor } from './../../utils'
+import { getItemFromFirestore } from './../../services/firebase';
 
-export default function ShadowText({text, size}){
+import { getSound } from './../../services/audio';
+
+export default function ShadowText({text, size, color="black", action=()=>{}}){
+    const [song, setSong] = useState()
+    useEffect(()=>{
+        getItemFromFirestore(`songs/${text}.mp3`).then(
+            url => getSound(url).then(
+                sound => setSong(sound)
+            )
+        )
+    }, [text])
+    const onPress = async () => {
+        if (song) await song.playAsync();
+        action();
+    }
     return(
-        <TouchableOpacity>
-            <Text style={[styles.letterText, { color: getRandomColor(), fontSize: size }]}>
+        <TouchableOpacity onPress={()=> onPress()}>
+            <Text style={[styles.letterText, { fontSize: size, color }]}>
                 {text}
             </Text>
         </TouchableOpacity>

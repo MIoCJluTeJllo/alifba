@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 
 import { useDispatch } from 'react-redux';
 import { nextLetter, prevLetter } from '../../redux/actions';
@@ -11,8 +11,25 @@ import Counter from './Counter';
 import Letter from './Letter';
 import TrainingScene from '../training/TrainingScene';
 
+import { getItemFromFirestore } from './../../services/firebase';
+import { getSound } from './../../services/audio';
+
 export default function MainScene(){
     const dispatch = useDispatch();
+    const [song, setSong] = useState();
+    useEffect(()=>{
+        getItemFromFirestore('songs/background.mp3').then(
+            url => getSound(url).then(
+                sound => {
+                    if (sound) {
+                        sound.setIsLoopingAsync(true);
+                        playSound(sound);
+                    }
+                }
+            )
+        )
+    }, [])
+    const playSound = async (sound) => await sound.playAsync();
     return(
         <View style={styles.mainSceneView}>
             <Counter/>

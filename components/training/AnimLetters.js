@@ -28,9 +28,10 @@ export default function AnimLetters(){
         <View style={styles.animLettersView}>{
             letters.map(letter => 
                 <Animated.Text 
-                    onPress={()=>anim(letter)}
+                    key={letter}
                     style={[styles.animLetterView, {width: width/5, opacity, backgroundColor: getRandomColor()}]}>
                     <ShadowText 
+                        action={()=>anim(letter)}
                         text={letter} 
                         size={50}/>
                 </Animated.Text>)}
